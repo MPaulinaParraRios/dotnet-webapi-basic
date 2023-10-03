@@ -1,5 +1,5 @@
+using LibraryApp.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
-using TODO.WebApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<TODOAppDbContext>(options =>
+builder.Services.AddDbContext<LibraryAppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnetion"));
 });
-
 
 var app = builder.Build();
 
@@ -24,14 +23,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-app.UseEndpoints(endpoints => 
-{ 
+app.UseEndpoints(endpoints =>
+{
     endpoints.MapControllers();
 }
 );
-
 app.UseHttpsRedirection();
 
 app.Run();
-
-
