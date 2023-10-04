@@ -1,11 +1,12 @@
 using LibraryApp.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<LibraryAppDbContext>(options =>
@@ -15,12 +16,32 @@ builder.Services.AddDbContext<LibraryAppDbContext>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var context = services.GetRequiredService<LibraryAppDbContext>();
+        if (context.Database.GetPendingMigrations().Any())
+        {
+            context.Database.Migrate();
+        }
+    }
+    catch (Exception ex)
+    {
+        // Aquí puedes manejar cualquier error que pueda surgir, por ejemplo, utilizando un logger
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Un error ocurrió al aplicar las migraciones.");
+    }
 }
+
+//Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
 app.UseRouting();
 app.UseEndpoints(endpoints =>

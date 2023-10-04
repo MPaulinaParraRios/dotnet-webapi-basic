@@ -11,55 +11,55 @@ namespace LibraryApp.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LibraryItemsController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly LibraryAppDbContext _context;
 
-        public LibraryItemsController(LibraryAppDbContext context)
+        public UsersController(LibraryAppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/LibraryItems
+        // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LibraryItem>>> GetItems()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-          if (_context.Items == null)
+          if (_context.Users == null)
           {
               return NotFound();
           }
-            return await _context.Items.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
-        // GET: api/LibraryItems/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<LibraryItem>> GetLibraryItem(int id)
+        public async Task<ActionResult<User>> GetUser(int id)
         {
-          if (_context.Items == null)
+          if (_context.Users == null)
           {
               return NotFound();
           }
-            var libraryItem = await _context.Items.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
 
-            if (libraryItem == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return libraryItem;
+            return user;
         }
 
-        // PUT: api/LibraryItems/5
+        // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLibraryItem(int id, LibraryItem libraryItem)
+        public async Task<IActionResult> PutUser(int id, User user)
         {
-            if (id != libraryItem.Id)
+            if (id != user.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(libraryItem).State = EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace LibraryApp.WebApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LibraryItemExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -80,44 +80,44 @@ namespace LibraryApp.WebApi.Controllers
             return NoContent();
         }
 
-        // POST: api/LibraryItems
+        // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LibraryItem>> PostLibraryItem(LibraryItem libraryItem)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
-          if (_context.Items == null)
+          if (_context.Users == null)
           {
-              return Problem("Entity set 'LibraryAppDbContext.Items'  is null.");
+              return Problem("Entity set 'LibraryAppDbContext.Users'  is null.");
           }
-            _context.Items.Add(libraryItem);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLibraryItem", new { id = libraryItem.Id }, libraryItem);
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        // DELETE: api/LibraryItems/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLibraryItem(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            if (_context.Items == null)
+            if (_context.Users == null)
             {
                 return NotFound();
             }
-            var libraryItem = await _context.Items.FindAsync(id);
-            if (libraryItem == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Items.Remove(libraryItem);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool LibraryItemExists(int id)
+        private bool UserExists(int id)
         {
-            return (_context.Items?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

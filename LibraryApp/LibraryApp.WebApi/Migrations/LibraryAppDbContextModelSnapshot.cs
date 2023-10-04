@@ -48,12 +48,17 @@ namespace LibraryApp.WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("LibraryApp.WebApi.Models.LibraryItem", b =>
+            modelBuilder.Entity("LibraryApp.WebApi.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,31 +66,41 @@ namespace LibraryApp.WebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Task")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
-                    b.ToTable("Items");
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("LibraryApp.WebApi.Models.LibraryItem", b =>
+            modelBuilder.Entity("LibraryApp.WebApi.Models.Book", b =>
                 {
-                    b.HasOne("LibraryApp.WebApi.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
+                    b.HasOne("LibraryApp.WebApi.Models.User", "User")
+                        .WithMany("Books")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Book");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("LibraryApp.WebApi.Models.User", b =>
+                {
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }
