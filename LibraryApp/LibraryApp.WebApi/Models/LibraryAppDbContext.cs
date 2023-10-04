@@ -18,8 +18,8 @@ namespace LibraryApp.WebApi.Models
               .WithOne(b => b.User)
 
             //modelBuilder.Entity<Book>()
-             // .HasMany(u => u.Books)
-             // .WithOne(b => b.User)
+             //.HasMany(u => u.Books)
+             //.WithOne(b => b.User)
 
           .OnDelete(DeleteBehavior.Cascade);
 
