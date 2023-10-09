@@ -13,17 +13,20 @@ namespace LibraryApp.WebApi.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>()
-              .HasMany(u => u.Books)
-              .WithOne(b => b.User)
+            //modelBuilder.Entity<User>()
+            //  .HasMany(u => u.Books)
+            //  .WithOne(b => b.User).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
+
 
             //modelBuilder.Entity<Book>()
-             //.HasMany(u => u.Books)
-             //.WithOne(b => b.User)
+            // .HasOne(u => u.User)
+            // .WithMany(b => b.Books)
+            // .HasForeignKey(b => b.UserId).IsRequired (false);
+           
 
-          .OnDelete(DeleteBehavior.Cascade);
 
         }
+
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

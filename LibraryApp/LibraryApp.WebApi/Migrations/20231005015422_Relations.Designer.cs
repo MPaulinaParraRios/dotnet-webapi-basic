@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryApp.WebApi.Migrations
 {
     [DbContext(typeof(LibraryAppDbContext))]
-    [Migration("20231004214028_Relations")]
+    [Migration("20231005015422_Relations")]
     partial class Relations
     {
         /// <inheritdoc />
