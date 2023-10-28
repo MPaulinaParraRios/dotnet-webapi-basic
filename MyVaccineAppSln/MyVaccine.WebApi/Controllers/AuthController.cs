@@ -50,4 +50,29 @@ public class AuthController : ControllerBase
             return Unauthorized(response);
         }
     }
+
+    [Authorize]
+    [HttpPost("refresh-token")]
+    public async Task<IActionResult> RefreshToken()
+    {
+        var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+        var response = await _userService.RefreshToken(claimsIdentity.Name);
+        if (response.IsSuccess)
+        {
+            return Ok(response);
+        }
+        else
+        {
+            return Unauthorized(response);
+        }
+    }
+    [Authorize]
+    [HttpGet("user-info")]
+    public async Task<IActionResult> GetUserInfo()
+    {
+        var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+        var response = await _userService.GetUserInfo(claimsIdentity.Name);
+
+        return Ok(response);
+    }
 }
