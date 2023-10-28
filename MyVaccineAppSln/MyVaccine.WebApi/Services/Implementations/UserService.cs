@@ -16,6 +16,7 @@ public class UserService : IUserService
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly IUserRepository _userRepository;
+
     public UserService(UserManager<IdentityUser> userManager, IUserRepository userRepository)
     {
         _userManager = userManager;
