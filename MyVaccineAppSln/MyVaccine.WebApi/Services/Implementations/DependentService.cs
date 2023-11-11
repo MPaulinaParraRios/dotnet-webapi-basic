@@ -52,7 +52,12 @@ public class DependentService : IDependentService
         var response = _mapper.Map<DependentResponseDto>(dependents);
         return response;
     }
-
+    public async Task<IEnumerable<DependentResponseDto>> GetDependentsByUserId(int userId)
+    {
+        var dependents = await _dependentRepository.FindByAsNoTracking(x => x.UserId == userId).ToListAsync();
+        var response = _mapper.Map<IEnumerable<DependentResponseDto>>(dependents);
+        return response;
+    }
     public async Task<DependentResponseDto> Update(DependentRequestDto request, int id)
     {
         var dependents = await _dependentRepository.FindBy(x => x.DependentId == id).FirstOrDefaultAsync();
