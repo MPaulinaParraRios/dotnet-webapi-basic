@@ -15,12 +15,16 @@ public static class DependencyInjections
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IBaseRepository<Dependent>, BaseRepository<Dependent>>();
         services.AddScoped<IBaseRepository<Allergy>, BaseRepository<Allergy>>();
+        services.AddScoped<IBaseRepository<FamilyGroup>, BaseRepository<FamilyGroup>>();
+
         #endregion
 
         #region Services Injection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IDependentService, DependentService>();
         services.AddScoped<IAllergyService, AllergyService>();
+        services.AddScoped<IFamilyGroupService, FamilyGroupService>();
+
         #endregion
 
         #region Only for  testing propourses

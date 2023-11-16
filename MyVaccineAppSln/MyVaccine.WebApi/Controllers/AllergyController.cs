@@ -77,6 +77,4 @@ public class AllergyController : ControllerBase
 
         return Ok(allergys);
     }
-
-
 }
