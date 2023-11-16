@@ -26,6 +26,7 @@ public class DependentsController : ControllerBase
         var dependents = await _dependentService.GetAll();
         return Ok(dependents);
     }
+
     [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)

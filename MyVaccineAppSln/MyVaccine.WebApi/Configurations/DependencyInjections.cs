@@ -14,11 +14,13 @@ public static class DependencyInjections
         #region Repositories Injection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IBaseRepository<Dependent>, BaseRepository<Dependent>>();
+        services.AddScoped<IBaseRepository<Allergy>, BaseRepository<Allergy>>();
         #endregion
 
         #region Services Injection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IDependentService, DependentService>();
+        services.AddScoped<IAllergyService, AllergyService>();
         #endregion
 
         #region Only for  testing propourses
