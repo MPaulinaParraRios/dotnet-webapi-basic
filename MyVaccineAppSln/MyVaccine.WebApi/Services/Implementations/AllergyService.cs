@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MyVaccine.WebApi.Dtos.Allergy;
-using MyVaccine.WebApi.Dtos.Dependent;
 using MyVaccine.WebApi.Models;
 using MyVaccine.WebApi.Repositories.Contracts;
 using MyVaccine.WebApi.Services.Contracts;
-using System.Runtime.InteropServices;
 
 namespace MyVaccine.WebApi.Services.Implementations;
 
